@@ -32,12 +32,27 @@ if(isset($api_key_id)){
     } elseif($_GET['action']=="temperature"){
       $now = time();
       $start = strtotime($_GET['period']." ago");
-      echo $start;
       $query = "SELECT `timestamp`,`temperature` FROM $db_name.`readings` WHERE `sensor_id` = '".$_GET['sensor']."'"; //Get sensor array
       $result = mysqli_query($link,$query) or die(mysqli_error($link));
-      $temperature_array = mysqli_fetch_all($result, MYSQLI_ASSOC);
-      $temperature_array = array_column($temperature_array,'temperature','timestamp');
-      echo json_encode($temperature_array);
+      $array = mysqli_fetch_all($result, MYSQLI_ASSOC);
+      $array = array_column($array,'temperature','timestamp');
+      echo json_encode($array);
+    } elseif($_GET['action']=="pressure"){
+      $now = time();
+      $start = strtotime($_GET['period']." ago");
+      $query = "SELECT `timestamp`,`pressure` FROM $db_name.`readings` WHERE `sensor_id` = '".$_GET['sensor']."'"; //Get sensor array
+      $result = mysqli_query($link,$query) or die(mysqli_error($link));
+      $array = mysqli_fetch_all($result, MYSQLI_ASSOC);
+      $array = array_column($array,'pressure','timestamp');
+      echo json_encode($array);
+    } elseif($_GET['action']=="light"){
+      $now = time();
+      $start = strtotime($_GET['period']." ago");
+      $query = "SELECT `timestamp`,`lux` FROM $db_name.`readings` WHERE `sensor_id` = '".$_GET['sensor']."'"; //Get sensor array
+      $result = mysqli_query($link,$query) or die(mysqli_error($link));
+      $array = mysqli_fetch_all($result, MYSQLI_ASSOC);
+      $array = array_column($array,'lux','timestamp');
+      echo json_encode($array);
     } else {
       http_response_code(400);
       echo "Unknown API Method";
