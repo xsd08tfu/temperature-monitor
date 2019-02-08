@@ -33,8 +33,6 @@ if(isset($api_key_id)){
       http_response_code(401);
       echo "Sensor not associated with this API Key";
     };
-  } elseif($_GET['action']=="temperature"){
-
   } else {
     http_response_code(400);
     echo "Unknown API Method";
